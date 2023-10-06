@@ -15,6 +15,19 @@ terraform {
     tenant_id            = "b1e9317b-8655-4923-aeba-8c08739d8a40" 
     #key                  = "EnvDev.terraform.tfstate"            # a commenter et renseigner dans pipeline si code execute par github actions
   } */
+
+  backend "azurerm" {
+    resource_group_name  = "terraform-state"
+    storage_account_name = "younesstfstate"
+    container_name       = "core-tfstate"
+    #key                  = "test.terraform.tfstate"
+    use_azuread_auth     = false
+    subscription_id      = "04a8f837-04eb-4ae9-8060-61ce40485adf"
+    tenant_id            = "6e7e95ba-7ec3-4c88-b6a6-61283afed307"           # --> tenantID personnel
+
+    # subscription_id      = "c435e127-e11a-4d08-9385-fea28f616dcc"           
+    # tenant_id            = "85173d93-99ef-4dff-9b45-495719659133"           # --> tenantID de Thales E2E
+  }
 }
 
 # Define the provider configuration
