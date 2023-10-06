@@ -21,7 +21,7 @@ jobs:
       
       #Variables suivantes a adapter selon environnement de deploiement cible
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIB_DEV_ID }}    # Selon abonnement de deploiement cible, specifier parmis : AZ_SUBSCRIB_[PROD, DEV, QUALIF, RECT]_ID
-      WORK_ENV: prod                                            # Nom d'environnement parmi : [prod, dev, qualif, rect]
+      WORK_ENV: dev                                            # Nom d'environnement parmi : [prod, dev, qualif, rect]
     
     runs-on: ubuntu-latest #self-hosted
     environment: $WORK_ENV
