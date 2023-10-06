@@ -1,0 +1,45 @@
+# Pipeline qui deploie les ressources dans un seul environnement
+
+name: 'Pipeline Spoke Azure'
+on:
+  # push:
+  #   branches:
+  #   - main
+  # pull_request:
+  workflow_dispatch: #Pipeline a execution manuelle uniquement
+
+permissions:
+  contents: read
+
+jobs:
+  job_1:
+    name: 'Deploiement Terraform'
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZ_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET_KEY }}
+      ARM_TENANT_ID: ${{ secrets.AZ_TENANT_ID }}
+      
+      #Variables suivantes a adapter selon environnement de deploiement cible
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIB_DEV_ID }}    # Selon abonnement de deploiement cible, specifier parmis : AZ_SUBSCRIB_[PROD, DEV, QUALIF, RECT]_ID
+      WORK_ENV: prod                                            # Nom d'environnement parmi : [prod, dev, qualif, rect]
+    
+    runs-on: self-hosted
+    environment: $WORK_ENV
+
+# Use the Bash shell regardless of whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        shell: powershell
+
+    steps:
+    # Checkout the repository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v3
+
+# Initialise et deploie la configuration Terraform
+    - name: Terraform Init
+      run: terraform init -backend-config="key=$WORK_ENV.spoke.tfstate"             # Specifie le tfstate a utiliser
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false -var environement=$WORK_ENV
+      
