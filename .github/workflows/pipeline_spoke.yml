@@ -23,13 +23,13 @@ jobs:
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZ_SUBSCRIB_DEV_ID }}    # Selon abonnement de deploiement cible, specifier parmis : AZ_SUBSCRIB_[PROD, DEV, QUALIF, RECT]_ID
       WORK_ENV: prod                                            # Nom d'environnement parmi : [prod, dev, qualif, rect]
     
-    runs-on: self-hosted
+    runs-on: ubuntu-latest #self-hosted
     environment: $WORK_ENV
 
 # Use the Bash shell regardless of whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
-        shell: powershell
+        shell: bash #powershell
 
     steps:
     # Checkout the repository to the GitHub Actions runner
