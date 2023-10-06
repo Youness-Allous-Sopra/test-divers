@@ -16,7 +16,7 @@ jobs:
     name: 'Deploiement Terraform'
     env:
       ARM_CLIENT_ID: ${{ secrets.AZ_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET_KEY }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZ_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.AZ_TENANT_ID }}
       
       #Variables suivantes a adapter selon environnement de deploiement cible
