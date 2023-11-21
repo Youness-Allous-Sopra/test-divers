@@ -4,5 +4,3 @@ dnf clean all
 dnf install zabbix-agent -y
 systemctl restart zabbix-agent
 systemctl enable zabbix-agent
-reboot
-# zabbix_agentd -V   #permet de verifier la version de l'agent
